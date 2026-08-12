@@ -15,3 +15,5 @@ Thumbs.db
 # Data (raw data shouldn't be committed)
 data/*.csv
 data/*.json
+
+.cache
