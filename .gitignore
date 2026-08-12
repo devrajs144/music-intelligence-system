@@ -1,0 +1,17 @@
+# Virtual environment
+venv/
+
+# Environment variables / secrets
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data (raw data shouldn't be committed)
+data/*.csv
+data/*.json
