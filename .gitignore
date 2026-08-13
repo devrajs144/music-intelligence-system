@@ -17,3 +17,5 @@ data/*.csv
 data/*.json
 
 .cache
+
+data/raw/
