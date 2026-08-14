@@ -5,13 +5,13 @@ An ML-powered system that analyzes Spotify listening data to help users rediscov
 ## Features (in progress)
 
 - 🕰️ **Spotify Memory** — rediscover songs you used to love ✅ v1 complete
-- 🫧 **Music Bubble Detector** — measure listening diversity and surface adjacent recommendations
+- 🫧 **Music Bubble Detector** — measure listening diversity and surface adjacent recommendations ✅ v1 complete
 - 👥 **Aux Battle** — optimize group playlists for shared satisfaction
 - 🧬 **Music DNA** — an interpretable behavioural listening profile 🚧 in progress
 
 ## Status
 
-🚧 Under active development — Day 3 of a 7-day build.
+🚧 Under active development — Day 4 of a 7-day build.
 
 ## Setup
 
@@ -112,8 +112,27 @@ frontend/            UI (future)
 tests/               Tests (future)
 ```
 
+## Music Bubble Detector (v1)
+
+Measures listening concentration and surfaces "adjacent" artists using only your own data (no external similarity API available — see Data Availability Notes).
+
+**Bubble measurement:**
+- Artist frequency distribution across all top-track time ranges + recently played
+- Bubble radius: number of artists accounting for ~80% of total listening
+- Top 5 artist concentration %
+
+**Adjacency scoring** (for non-core artists, low-to-moderate frequency):
+- Freshness (weight 0.5, highest priority): rewards presence across multiple recent time ranges — chosen because "bubble escape" should surface currently-live possibilities, not old abandoned tries.
+- Familiarity (weight 0.3): normalized play frequency — must have been heard, but not obsessively.
+- Distinctness (weight 0.2): guaranteed by excluding core/top-5 artists before scoring.
+
+**Data cleaning note:** Spotify artist metadata contains spelling inconsistencies for the same real artist (e.g., transliteration variants). Added fuzzy string matching (difflib SequenceMatcher, 85% similarity threshold) to merge near-duplicate artist names before scoring.
+
+**Known limitation — frequency proxy:** Spotify does not expose real play counts. `total_freq` is a proxy built from counting how many of the 4 available lists (top tracks short/medium/long term + recently played) an artist's tracks appear in — capped at a small integer range (typically 1–5). This means an artist with a few favorite tracks played "a fair amount, not daily" can score identically to one briefly sampled once, since both simply have low list-appearance counts. A true play-count-weighted frequency isn't achievable with the currently accessible Spotify endpoints. This can cause a genuinely well-liked artist to appear in "Adjacent" rather than "Core" if their listening is concentrated on few tracks rather than spread across many.
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
 - ✅ Day 2: Data collection pipeline, pandas loading, first Music DNA behavioural features
-- ✅ Day 3: Spotify Memory — Rediscovery Score v1 (persistence-weighted, rule-based)
+- ✅ Day 3: Spotify Memory — Rediscovery Score v1
+- ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching, documented frequency-proxy limitation
