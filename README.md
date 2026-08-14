@@ -130,9 +130,22 @@ Measures listening concentration and surfaces "adjacent" artists using only your
 
 **Known limitation — frequency proxy:** Spotify does not expose real play counts. `total_freq` is a proxy built from counting how many of the 4 available lists (top tracks short/medium/long term + recently played) an artist's tracks appear in — capped at a small integer range (typically 1–5). This means an artist with a few favorite tracks played "a fair amount, not daily" can score identically to one briefly sampled once, since both simply have low list-appearance counts. A true play-count-weighted frequency isn't achievable with the currently accessible Spotify endpoints. This can cause a genuinely well-liked artist to appear in "Adjacent" rather than "Core" if their listening is concentrated on few tracks rather than spread across many.
 
+## Music DNA v2 — Consolidated Dashboard
+
+Combines all behavioural features into one interpretable listener profile, each with a plain-language explanation.
+
+**Dimensions:**
+- Artist Diversity, Discovery Rate, Repetition Rate (from v1, Day 2)
+- **Nostalgia Score** (new): overlap between medium_term and long_term top tracks — distinct from Discovery Rate, which compares short_term vs long_term.
+- **Mainstream Tendency** (new, currently unavailable): intended to average Spotify's `popularity` field across top tracks. Confirmed via direct field inspection that `popularity` is absent entirely from track objects returned to this app's Development Mode access tier — reported honestly as "Not available" rather than defaulting to a misleading 0.0.
+- Bubble Radius, Top 5 Artist Concentration % (from Day 4, loaded from `bubble_analysis.json`)
+
+Run: `python features/music_dna_v2.py` (requires `bubble_analysis.json` to exist first — run `music_bubble.py` beforehand) → saves to `data/processed/music_dna.json`
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
 - ✅ Day 2: Data collection pipeline, pandas loading, first Music DNA behavioural features
 - ✅ Day 3: Spotify Memory — Rediscovery Score v1
-- ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching, documented frequency-proxy limitation
+- ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching
+- ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation (popularity field unavailable)
