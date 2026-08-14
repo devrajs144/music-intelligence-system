@@ -1,0 +1,470 @@
+[
+  {
+    "track_id": "2chmRmAiEmWcBfEmD0b5DA",
+    "track_name": "Jahaan",
+    "artist_name": "Lost Stories",
+    "rediscovery_score": 0.9,
+    "persistence": 1.0,
+    "historical_strength": 1.0,
+    "absence_proxy": 0.5
+  },
+  {
+    "track_id": "0q5e5KtUOhYQujmhLP0pKd",
+    "track_name": "Dooron Dooron",
+    "artist_name": "Paresh Pahuja",
+    "rediscovery_score": 0.894,
+    "persistence": 1.0,
+    "historical_strength": 0.98,
+    "absence_proxy": 0.5
+  },
+  {
+    "track_id": "2wthG5BIYGo3UXPplvXscX",
+    "track_name": "Leja",
+    "artist_name": "Lost Stories",
+    "rediscovery_score": 0.882,
+    "persistence": 1.0,
+    "historical_strength": 0.94,
+    "absence_proxy": 0.5
+  },
+  {
+    "track_id": "7cLGKaJXLFpUU7Up34vVr1",
+    "track_name": "Tera Rastaa Chhodoon Na",
+    "artist_name": "Vishal-Shekhar",
+    "rediscovery_score": 0.776,
+    "persistence": 0.6,
+    "historical_strength": 0.92,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "0KSOLEBixnBYIKNHF1VbzF",
+    "track_name": "Hona Tha Pyar",
+    "artist_name": "Atif Aslam",
+    "rediscovery_score": 0.774,
+    "persistence": 1.0,
+    "historical_strength": 0.58,
+    "absence_proxy": 0.5
+  },
+  {
+    "track_id": "7D6kS3X9aFpFcDV51GK2TZ",
+    "track_name": "Dhun Laagi",
+    "artist_name": "Sachin-Jigar",
+    "rediscovery_score": 0.77,
+    "persistence": 0.6,
+    "historical_strength": 0.9,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "2S8MshrEWbku58CWGu2rws",
+    "track_name": "Satrangi Re",
+    "artist_name": "Arijit Singh",
+    "rediscovery_score": 0.764,
+    "persistence": 0.6,
+    "historical_strength": 0.88,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "14uXhHNINQqjl2hngD21s9",
+    "track_name": "Tera Chehra",
+    "artist_name": "Adnan Sami",
+    "rediscovery_score": 0.728,
+    "persistence": 0.6,
+    "historical_strength": 0.76,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "37QFYtNOmvmXrgesLTRhMq",
+    "track_name": "Iktara - Male Version",
+    "artist_name": "Amit Trivedi",
+    "rediscovery_score": 0.722,
+    "persistence": 0.6,
+    "historical_strength": 0.74,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "5NK3IhIeIXQmOKK5EiSRra",
+    "track_name": "Run Down The City - Monica",
+    "artist_name": "Shashwat Sachdev",
+    "rediscovery_score": 0.72,
+    "persistence": 1.0,
+    "historical_strength": 0.4,
+    "absence_proxy": 0.5
+  },
+  {
+    "track_id": "6K8qKeWo5MsFED7wCR6Kop",
+    "track_name": "Sing",
+    "artist_name": "Ed Sheeran",
+    "rediscovery_score": 0.716,
+    "persistence": 0.6,
+    "historical_strength": 0.72,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3ZGJhN4unVspOqpwGvUL2W",
+    "track_name": "Lemonade",
+    "artist_name": "Diljit Dosanjh",
+    "rediscovery_score": 0.704,
+    "persistence": 0.6,
+    "historical_strength": 0.68,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "6egfWbtFFhMToV2DvmEzmo",
+    "track_name": "Tu Hain Toh (From \"Mr. And Mrs. Mahi\")",
+    "artist_name": "Bunny",
+    "rediscovery_score": 0.692,
+    "persistence": 0.6,
+    "historical_strength": 0.64,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "1D35BJlymlh6OLD75WupSF",
+    "track_name": "Saiyaara (From \"Saiyaara\")",
+    "artist_name": "Tanishk Bagchi",
+    "rediscovery_score": 0.68,
+    "persistence": 0.6,
+    "historical_strength": 0.6,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "5npFBWhVs3VVlc0nY5xQMA",
+    "track_name": "Tainu Khabar Nahi - From \"Munjya\"",
+    "artist_name": "Sachin-Jigar",
+    "rediscovery_score": 0.668,
+    "persistence": 0.6,
+    "historical_strength": 0.56,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "5ThyDv6aRVU8AH4vXQNldF",
+    "track_name": "Finding Her",
+    "artist_name": "Kushagra",
+    "rediscovery_score": 0.662,
+    "persistence": 0.6,
+    "historical_strength": 0.54,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "1sNCUR5bUvFSQVDYEvsHCU",
+    "track_name": "Saathiyaa",
+    "artist_name": "Shreya Ghoshal",
+    "rediscovery_score": 0.656,
+    "persistence": 0.6,
+    "historical_strength": 0.52,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "4bD9z9qa4qg9BhryvYWB7c",
+    "track_name": "Kabira",
+    "artist_name": "Pritam",
+    "rediscovery_score": 0.644,
+    "persistence": 0.6,
+    "historical_strength": 0.48,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "17opN752ZQpNuoptelsNQ1",
+    "track_name": "Pehli Nazar Mein",
+    "artist_name": "Atif Aslam",
+    "rediscovery_score": 0.638,
+    "persistence": 0.6,
+    "historical_strength": 0.46,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "1vG2VKmXPAXrYush08oZLy",
+    "track_name": "Nit Khair Manga",
+    "artist_name": "Rahat Fateh Ali Khan",
+    "rediscovery_score": 0.614,
+    "persistence": 0.6,
+    "historical_strength": 0.38,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "0Yf9Tgv5f55njDQeuRUnQH",
+    "track_name": "Tenu Sang Rakhna (From \"Jigra\")",
+    "artist_name": "Achint",
+    "rediscovery_score": 0.608,
+    "persistence": 0.6,
+    "historical_strength": 0.36,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3vCzLB6kS2lGcIpm1OOUsy",
+    "track_name": "Ishq Hai",
+    "artist_name": "Anurag Saikia",
+    "rediscovery_score": 0.602,
+    "persistence": 0.6,
+    "historical_strength": 0.34,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3nKQrVVlwbAQSnFbgZWdN0",
+    "track_name": "White Brown Black",
+    "artist_name": "Avvy Sra",
+    "rediscovery_score": 0.584,
+    "persistence": 0.6,
+    "historical_strength": 0.28,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "5NdVbWjNxxzv3SMxtINLu2",
+    "track_name": "Nai Lagda (From \"Notebook\")",
+    "artist_name": "Vishal Mishra",
+    "rediscovery_score": 0.578,
+    "persistence": 0.6,
+    "historical_strength": 0.26,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3ctaMit7CuiHIPVYrRvm15",
+    "track_name": "Raat Bhar",
+    "artist_name": "Arijit Singh",
+    "rediscovery_score": 0.572,
+    "persistence": 0.6,
+    "historical_strength": 0.24,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3FqtduiaqnFYvBgKuc6QWQ",
+    "track_name": "Winning Speech",
+    "artist_name": "Karan Aujla",
+    "rediscovery_score": 0.566,
+    "persistence": 0.6,
+    "historical_strength": 0.22,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "1HNkqx9Ahdgi1Ixy2xkKkL",
+    "track_name": "Photograph",
+    "artist_name": "Ed Sheeran",
+    "rediscovery_score": 0.56,
+    "persistence": 0.6,
+    "historical_strength": 0.2,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3yHyiUDJdz02FZ6jfUbsmY",
+    "track_name": "Satranga (From \"ANIMAL\")",
+    "artist_name": "Arijit Singh",
+    "rediscovery_score": 0.548,
+    "persistence": 0.6,
+    "historical_strength": 0.16,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3Vr3zh0r7ALn8VLqCiRR10",
+    "track_name": "Stargazing",
+    "artist_name": "Myles Smith",
+    "rediscovery_score": 0.542,
+    "persistence": 0.6,
+    "historical_strength": 0.14,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "6G8vN5EUtcDxOXOXadF6kp",
+    "track_name": "Tum Ho Toh (From \"Saiyaara\")",
+    "artist_name": "Vishal Mishra",
+    "rediscovery_score": 0.536,
+    "persistence": 0.6,
+    "historical_strength": 0.12,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "7FEa01m9SgfOaam2AawVF6",
+    "track_name": "Saajna (Unplugged)",
+    "artist_name": "Falak Shabbir",
+    "rediscovery_score": 0.53,
+    "persistence": 0.6,
+    "historical_strength": 0.1,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "4FeczSomVWVyU4FW7xDeAI",
+    "track_name": "Tere Bina",
+    "artist_name": "A.R. Rahman",
+    "rediscovery_score": 0.518,
+    "persistence": 0.6,
+    "historical_strength": 0.06,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "7cWnks0lsRtpAi87COOiXK",
+    "track_name": "O Re Piya",
+    "artist_name": "Salim\u2013Sulaiman",
+    "rediscovery_score": 0.506,
+    "persistence": 0.6,
+    "historical_strength": 0.02,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "7FLVm1D9aP231Da7F2p6zs",
+    "track_name": "Tumse Behtar (From \"Sunny Sanskari Ki Tulsi Kumari\")",
+    "artist_name": "Arijit Singh",
+    "rediscovery_score": 0.482,
+    "persistence": 0.4,
+    "historical_strength": 0.74,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "0UYKuhzPMkvRQWO6luWBhI",
+    "track_name": "Iktara - Male Version",
+    "artist_name": "Amit Trivedi",
+    "rediscovery_score": 0.476,
+    "persistence": 0.4,
+    "historical_strength": 0.72,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "7hk9hVBgdKCbkQOnjxl8bC",
+    "track_name": "Stargazing",
+    "artist_name": "Myles Smith",
+    "rediscovery_score": 0.47,
+    "persistence": 0.4,
+    "historical_strength": 0.7,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "3dPQuX8Gs42Y7b454ybpMR",
+    "track_name": "Seven Nation Army",
+    "artist_name": "The White Stripes",
+    "rediscovery_score": 0.464,
+    "persistence": 0.4,
+    "historical_strength": 0.68,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "04nGtYb4j4kZywPC9vtGPK",
+    "track_name": "Tu Hai Meri (From \"Sunny Sanskari Ki Tulsi Kumari\")",
+    "artist_name": "Sachet-Parampara",
+    "rediscovery_score": 0.446,
+    "persistence": 0.4,
+    "historical_strength": 0.62,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "0qVNxbFE4EUV3mNFodXiln",
+    "track_name": "Saadi Galli Aaja",
+    "artist_name": "Ayushmann Khurrana",
+    "rediscovery_score": 0.434,
+    "persistence": 0.4,
+    "historical_strength": 0.58,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "6JIquezleHbiqFOSuvBlxw",
+    "track_name": "Ez-Ez",
+    "artist_name": "Shashwat Sachdev",
+    "rediscovery_score": 0.428,
+    "persistence": 0.4,
+    "historical_strength": 0.56,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "5IWLDqsSnQgBjXGiryDtTk",
+    "track_name": "Preet Re - From \"Dhadak 2\"",
+    "artist_name": "Darshan Raval",
+    "rediscovery_score": 0.422,
+    "persistence": 0.4,
+    "historical_strength": 0.54,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "0rk2X5TAhraBC5aCIXK2Rq",
+    "track_name": "Samjhawan",
+    "artist_name": "Jawad Ahmad",
+    "rediscovery_score": 0.416,
+    "persistence": 0.4,
+    "historical_strength": 0.52,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "0dnsJ8W8k4ncYstIsrz5pY",
+    "track_name": "sun saawariya",
+    "artist_name": "Accha Insaan",
+    "rediscovery_score": 0.41,
+    "persistence": 0.4,
+    "historical_strength": 0.5,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "0KdmllVQuh02x0IWnFcnsq",
+    "track_name": "Hoor",
+    "artist_name": "Lost Stories",
+    "rediscovery_score": 0.392,
+    "persistence": 0.4,
+    "historical_strength": 0.44,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "3dDGt4oS1CWTlPKBNyfKgq",
+    "track_name": "Taaj - Acoustic",
+    "artist_name": "Lost Stories",
+    "rediscovery_score": 0.374,
+    "persistence": 0.4,
+    "historical_strength": 0.38,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "6IviTcp8EQwrfeDNjows1C",
+    "track_name": "Mere Liye",
+    "artist_name": "Akhil Sachdeva",
+    "rediscovery_score": 0.368,
+    "persistence": 0.4,
+    "historical_strength": 0.36,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "6WlARP6h4CDVOcY386wW0W",
+    "track_name": "Sitaare (From \"Ikkis\")",
+    "artist_name": "Arijit Singh",
+    "rediscovery_score": 0.362,
+    "persistence": 0.4,
+    "historical_strength": 0.34,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "0rSU2KwpOCqLVDCPwd4WbE",
+    "track_name": "Thinking of You",
+    "artist_name": "AP Dhillon",
+    "rediscovery_score": 0.356,
+    "persistence": 0.4,
+    "historical_strength": 0.32,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "6fxVffaTuwjgEk5h9QyRjy",
+    "track_name": "Photograph",
+    "artist_name": "Ed Sheeran",
+    "rediscovery_score": 0.326,
+    "persistence": 0.4,
+    "historical_strength": 0.22,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "1Slwb6dOYkBlWal1PGtnNg",
+    "track_name": "Thinking out Loud",
+    "artist_name": "Ed Sheeran",
+    "rediscovery_score": 0.32,
+    "persistence": 0.4,
+    "historical_strength": 0.2,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "3hsDw4QmMZUtjlB1Wn7snI",
+    "track_name": "Paan Ki Dukaan",
+    "artist_name": "Vishal Bhardwaj",
+    "rediscovery_score": 0.29,
+    "persistence": 0.4,
+    "historical_strength": 0.1,
+    "absence_proxy": 0.3
+  },
+  {
+    "track_id": "5PetOhEX9N0oyBB0Keqobv",
+    "track_name": "Ehsaas",
+    "artist_name": "Faheem Abdullah",
+    "rediscovery_score": 0.284,
+    "persistence": 0.4,
+    "historical_strength": 0.08,
+    "absence_proxy": 0.3
+  }
+]
