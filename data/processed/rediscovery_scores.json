@@ -27,6 +27,15 @@
     "absence_proxy": 0.5
   },
   {
+    "track_id": "3gixnmepHSsyAuho34rprN",
+    "track_name": "Khat",
+    "artist_name": "Navjot Ahuja",
+    "rediscovery_score": 0.87,
+    "persistence": 1.0,
+    "historical_strength": 0.9,
+    "absence_proxy": 0.5
+  },
+  {
     "track_id": "7cLGKaJXLFpUU7Up34vVr1",
     "track_name": "Tera Rastaa Chhodoon Na",
     "artist_name": "Vishal-Shekhar",
@@ -168,6 +177,15 @@
     "rediscovery_score": 0.638,
     "persistence": 0.6,
     "historical_strength": 0.46,
+    "absence_proxy": 1.0
+  },
+  {
+    "track_id": "3uWQkslzoaKzbtOAjQxWNr",
+    "track_name": "Sajna",
+    "artist_name": "Darshan Raval",
+    "rediscovery_score": 0.626,
+    "persistence": 0.6,
+    "historical_strength": 0.42,
     "absence_proxy": 1.0
   },
   {
@@ -411,15 +429,6 @@
     "rediscovery_score": 0.368,
     "persistence": 0.4,
     "historical_strength": 0.36,
-    "absence_proxy": 0.3
-  },
-  {
-    "track_id": "6WlARP6h4CDVOcY386wW0W",
-    "track_name": "Sitaare (From \"Ikkis\")",
-    "artist_name": "Arijit Singh",
-    "rediscovery_score": 0.362,
-    "persistence": 0.4,
-    "historical_strength": 0.34,
     "absence_proxy": 0.3
   },
   {

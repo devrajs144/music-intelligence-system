@@ -142,10 +142,27 @@ Combines all behavioural features into one interpretable listener profile, each 
 
 Run: `python features/music_dna_v2.py` (requires `bubble_analysis.json` to exist first — run `music_bubble.py` beforehand) → saves to `data/processed/music_dna.json`
 
+## Smart Playlist Generator
+
+Combines Rediscovery (Day 3) and Adjacent Artists (Day 4) into one real, shuffled Spotify playlist — pushed live to your account via the Web API.
+
+- Even split: 10 Rediscovery tracks + 10 Adjacent tracks (adjacent artists resolved to a real track from your own raw data, since Day 4 only produces artist names).
+- Tracks are shuffled together for natural listening flow rather than clustering by category.
+- Created as a private playlist with an auto-generated name/description.
+
+**Critical fix — Feb 2026 Spotify API migration:** `spotipy`'s built-in `user_playlist_create()` and `playlist_add_items()` methods target endpoints Spotify has since removed:
+- `POST /users/{user_id}/playlists` → replaced by `POST /me/playlists`
+- `POST /playlists/{id}/tracks` → replaced by `POST /playlists/{id}/items`
+
+Since spotipy (as of this project's dependency version) hadn't been updated for this migration, both calls are made directly via spotipy's low-level `sp._post()` helper against the current, correct endpoints instead of the library's high-level methods.
+
+Run: `python recommendations/playlist_generator.py` (requires `rediscovery_scores.json` and `bubble_analysis.json` to exist first)
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
 - ✅ Day 2: Data collection pipeline, pandas loading, first Music DNA behavioural features
 - ✅ Day 3: Spotify Memory — Rediscovery Score v1
 - ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching
-- ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation (popularity field unavailable)
+- ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
+- ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues in spotipy

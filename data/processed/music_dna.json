@@ -1,13 +1,13 @@
 {
   "artist_diversity": {
-    "score": 0.912,
+    "score": 0.913,
     "label": "diverse",
-    "explanation": "Your Artist Diversity is 0.912 \u2014 you spread your listening across a wide range of artists rather than concentrating on just a few."
+    "explanation": "Your Artist Diversity is 0.913 \u2014 you spread your listening across a wide range of artists rather than concentrating on just a few."
   },
   "discovery_rate": {
-    "score": 0.72,
+    "score": 0.74,
     "label": "high",
-    "explanation": "Your Discovery Rate is 0.72 \u2014 a large share of your current favorites are new additions not present in your long-term history."
+    "explanation": "Your Discovery Rate is 0.74 \u2014 a large share of your current favorites are new additions not present in your long-term history."
   },
   "repetition_rate": {
     "score": 0.0,
@@ -25,11 +25,11 @@
     "explanation": "Not available \u2014 Spotify does not return the 'popularity' field for this app's access tier."
   },
   "bubble_radius": {
-    "score": 33,
-    "explanation": "33 artists account for ~80% of your listening."
+    "score": 35,
+    "explanation": "35 artists account for ~80% of your listening."
   },
   "top5_artist_concentration_pct": {
-    "score": 28.5,
-    "explanation": "Your top 5 artists make up 28.5% of your overall listening."
+    "score": 27.5,
+    "explanation": "Your top 5 artists make up 27.5% of your overall listening."
   }
 }
