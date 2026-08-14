@@ -1,0 +1,101 @@
+{
+  "bubble_stats": {
+    "bubble_radius": 33,
+    "total_unique_artists": 68,
+    "top_5_artists": [
+      [
+        "Pritam",
+        13
+      ],
+      [
+        "Aditya Rikhari",
+        13
+      ],
+      [
+        "Lost Stories",
+        11
+      ],
+      [
+        "Garvit - Priyansh",
+        10
+      ],
+      [
+        "Shashwat Sachdev",
+        10
+      ]
+    ],
+    "top_5_percent_of_plays": 28.5
+  },
+  "adjacent_artists": [
+    {
+      "artist_name": "LAUV",
+      "adjacency_score": 0.769,
+      "freshness": 1.0,
+      "familiarity": 0.231,
+      "total_freq": 3
+    },
+    {
+      "artist_name": "Darshan Raval",
+      "adjacency_score": 0.769,
+      "freshness": 1.0,
+      "familiarity": 0.231,
+      "total_freq": 3
+    },
+    {
+      "artist_name": "Faheem Abdullah",
+      "adjacency_score": 0.669,
+      "freshness": 0.8,
+      "familiarity": 0.231,
+      "total_freq": 3
+    },
+    {
+      "artist_name": "The Local Train",
+      "adjacency_score": 0.646,
+      "freshness": 0.8,
+      "familiarity": 0.154,
+      "total_freq": 2
+    },
+    {
+      "artist_name": "Charlie Puth",
+      "adjacency_score": 0.646,
+      "freshness": 0.8,
+      "familiarity": 0.154,
+      "total_freq": 2
+    },
+    {
+      "artist_name": "Ajay-Atul",
+      "adjacency_score": 0.646,
+      "freshness": 0.8,
+      "familiarity": 0.154,
+      "total_freq": 2
+    },
+    {
+      "artist_name": "Salim\u2013Sulaiman",
+      "adjacency_score": 0.619,
+      "freshness": 0.7,
+      "familiarity": 0.231,
+      "total_freq": 3
+    },
+    {
+      "artist_name": "Karan Aujla",
+      "adjacency_score": 0.619,
+      "freshness": 0.7,
+      "familiarity": 0.231,
+      "total_freq": 3
+    },
+    {
+      "artist_name": "Shreya Ghoshal",
+      "adjacency_score": 0.596,
+      "freshness": 0.7,
+      "familiarity": 0.154,
+      "total_freq": 2
+    },
+    {
+      "artist_name": "Anuv Jain",
+      "adjacency_score": 0.596,
+      "freshness": 0.7,
+      "familiarity": 0.154,
+      "total_freq": 2
+    }
+  ]
+}
