@@ -1,0 +1,17 @@
+{
+  "rediscovery": {
+    "total_candidates": 53,
+    "score_spread": 0.616,
+    "self_rated_hit_rate_at_10": 0.6
+  },
+  "bubble": {
+    "total_unique_artists": 71,
+    "bubble_radius": 35,
+    "concentration_ratio": 0.493,
+    "core_adjacent_overlap_count": 0
+  },
+  "music_dna": {
+    "discovery_rate": 0.74,
+    "nostalgia_score": 0.36
+  }
+}

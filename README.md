@@ -158,6 +158,8 @@ Since spotipy (as of this project's dependency version) hadn't been updated for 
 
 Run: `python recommendations/playlist_generator.py` (requires `rediscovery_scores.json` and `bubble_analysis.json` to exist first)
 
+This runs, in order: data collection → Music DNA v1 features → Rediscovery scoring → Bubble analysis → Music DNA v2 dashboard → Spotify playlist generation. Each step's output feeds the next; the pipeline halts immediately if any step fails, rather than continuing with stale or missing data. Total runtime: ~15 seconds.
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -165,4 +167,5 @@ Run: `python recommendations/playlist_generator.py` (requires `rediscovery_score
 - ✅ Day 3: Spotify Memory — Rediscovery Score v1
 - ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
-- ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues in spotipy
+- ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
+- ✅ Day 7 (in progress): End-to-end pipeline runner
