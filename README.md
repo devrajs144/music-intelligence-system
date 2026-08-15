@@ -214,6 +214,11 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 - `uvicorn backend.main:app --reload --port 8000`
 - `cd frontend && npm run dev`
 
+## Pages
+
+- `/` — Landing page with Connect Spotify CTA
+- `/dashboard` — Displays real Music DNA data fetched from `/api/dna`, rendered as cards with loading/error states
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -223,4 +228,4 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
 - ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
 - ✅ Day 7: End-to-end pipeline runner + evaluation metrics
-- ✅ Web App: FastAPI backend with real Spotify OAuth, React + Vite frontend, verified end-to-end login flow (including a real localhost/127.0.0.1 cookie-origin bug found and fixed)
+- ✅ Web App: FastAPI backend with real Spotify OAuth, React Router with Landing + Dashboard pages, first live data endpoint (Music DNA) fully working end-to-end

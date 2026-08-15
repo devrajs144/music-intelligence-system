@@ -14,6 +14,8 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from features.music_dna_v2 import build_music_dna
+from recommendations.spotify_memory import calculate_rediscovery_scores
+from recommendations.music_bubble import load_json as bubble_load_json, artist_appearance_by_range, measure_bubble, find_adjacent_artists
 
 load_dotenv()
 
@@ -108,6 +110,51 @@ def get_music_dna(request: Request):
     try:
         dna = build_music_dna()
         return dna
+    except FileNotFoundError as e:
+        return JSONResponse(
+            {"error": f"Missing data file: {e}. Run the data collection pipeline first."},
+            status_code=404
+        )
+
+@app.get("/api/memory")
+def get_rediscovery(request: Request):
+    """Wraps calculate_rediscovery_scores() from spotify_memory.py."""
+    token_info = request.session.get("token_info")
+    if not token_info:
+        return JSONResponse({"error": "Not authenticated"}, status_code=401)
+
+    try:
+        results = calculate_rediscovery_scores()
+        return {"candidates": results, "total": len(results)}
+    except FileNotFoundError as e:
+        return JSONResponse(
+            {"error": f"Missing data file: {e}. Run the data collection pipeline first."},
+            status_code=404
+        )
+
+@app.get("/api/bubble")
+def get_bubble_analysis(request: Request):
+    """
+    Wraps music_bubble.py's logic. Mirrors that file's main() function exactly,
+    since the bubble analysis requires chaining three functions together.
+    """
+    token_info = request.session.get("token_info")
+    if not token_info:
+        return JSONResponse({"error": "Not authenticated"}, status_code=401)
+
+    try:
+        top_short = bubble_load_json("top_tracks_short_term.json")
+        top_medium = bubble_load_json("top_tracks_medium_term.json")
+        top_long = bubble_load_json("top_tracks_long_term.json")
+        recent = bubble_load_json("recently_played.json")
+
+        artist_data = artist_appearance_by_range(top_short, top_medium, top_long, recent)
+        bubble_stats = measure_bubble(artist_data)
+
+        core_names = set(name for name, _ in bubble_stats["top_5_artists"])
+        adjacent = find_adjacent_artists(artist_data, core_names)
+
+        return {"bubble_stats": bubble_stats, "adjacent_artists": adjacent}
     except FileNotFoundError as e:
         return JSONResponse(
             {"error": f"Missing data file: {e}. Run the data collection pipeline first."},
