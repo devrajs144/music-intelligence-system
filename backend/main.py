@@ -19,7 +19,7 @@ app.add_middleware(SessionMiddleware, secret_key=os.getenv("SESSION_SECRET", sec
 # --- CORS: allow the React dev server to call this backend ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite's default dev port
+    allow_origins=["http://127.0.0.1:5173"],  # Vite's default dev port
     allow_credentials=True,  # required so session cookies work across origins
     allow_methods=["*"],
     allow_headers=["*"],

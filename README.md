@@ -188,6 +188,20 @@ Adding a full web frontend on top of the existing Python system.
 React (Vite) → FastAPI → existing Python modules → Spotify API / data/
 ```
 
+## Backend API (FastAPI)
+
+Located in `backend/main.py`. Owns the Spotify OAuth flow for the web app (separate from the CLI scripts' local-browser-popup auth).
+
+**Auth endpoints:**
+- `GET /auth/login` — redirects to Spotify's consent screen
+- `GET /auth/callback` — Spotify redirects here after approval; exchanges code for token, stores in session, redirects to frontend
+- `GET /auth/me` — returns current session's authenticated user
+- `GET /auth/logout` — clears the session
+
+Run: `uvicorn backend.main:app --reload --port 8000`
+
+Requires additional `.env` values: `SESSION_SECRET` (random, generate via `python -c "import secrets; print(secrets.token_hex(32))"`), `FRONTEND_URL`, and an updated `SPOTIFY_REDIRECT_URI` pointing to `http://127.0.0.1:8000/auth/callback` (must also be registered in the Spotify Developer Dashboard alongside the original CLI redirect URI).
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -196,4 +210,5 @@ React (Vite) → FastAPI → existing Python modules → Spotify API / data/
 - ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
 - ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
-- ✅ Day 7: End-to-end pipeline runner + evaluation metrics (self-rated Hit Rate@10 = 0.6)
+- ✅ Day 7: End-to-end pipeline runner + evaluation metrics
+- ✅ Web App Step 1-2: FastAPI backend with real session-based Spotify OAuth, verified end-to-end
