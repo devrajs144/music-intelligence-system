@@ -160,6 +160,34 @@ Run: `python recommendations/playlist_generator.py` (requires `rediscovery_score
 
 This runs, in order: data collection → Music DNA v1 features → Rediscovery scoring → Bubble analysis → Music DNA v2 dashboard → Spotify playlist generation. Each step's output feeds the next; the pipeline halts immediately if any step fails, rather than continuing with stale or missing data. Total runtime: ~15 seconds.
 
+## Evaluation
+
+Run: `python evaluation/evaluate_system.py` → saves to `data/processed/evaluation_results.json`
+
+**Spotify Memory:**
+- Score spread across candidates (confirms scores meaningfully discriminate rather than clustering)
+- Self-rated Hit Rate@10 — since no ground-truth labels exist for "genuine forgotten favorites," this is an honest human-judgment metric: the project owner reviews the top 10 and rates how many genuinely feel right. Result: **0.6** (6/10).
+
+**Music Bubble Detector:**
+- Concentration ratio (bubble radius ÷ total unique artists) — quantifies how tight or loose the listening bubble is. Result: **0.493** (moderately spread, not tightly concentrated).
+- Correctness check: zero overlap confirmed between Adjacent and core Top-5 artists.
+
+**Music DNA:**
+- Consistency check between Discovery Rate and Nostalgia Score — confirmed these measure genuinely distinct signals (0.74 vs 0.36) rather than being redundant, and together indicate a listener whose taste actively rotates rather than settling into long-term favorites.
+
+## Web Application (in progress)
+
+Adding a full web frontend on top of the existing Python system.
+
+- **Frontend:** React + Vite
+- **Backend:** FastAPI — required because Spotify credentials must stay server-side, and the ML/scoring logic is Python
+- **Auth:** Real session-based Spotify OAuth owned by the backend (not the CLI scripts' local-browser-popup flow), built to support both localhost and future deployment
+- **Integration approach:** Existing scripts in `backend/`, `features/`, `recommendations/` are reused via their existing return-data functions; CLI behavior (`if __name__ == "__main__"`) is left untouched
+
+```
+React (Vite) → FastAPI → existing Python modules → Spotify API / data/
+```
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -168,4 +196,4 @@ This runs, in order: data collection → Music DNA v1 features → Rediscovery s
 - ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
 - ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
-- ✅ Day 7 (in progress): End-to-end pipeline runner
+- ✅ Day 7: End-to-end pipeline runner + evaluation metrics (self-rated Hit Rate@10 = 0.6)
