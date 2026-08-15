@@ -1,14 +1,31 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
+import Memory from "./pages/Memory";
+import Bubble from "./pages/Bubble";
+import NavBar from "./components/NavBar";
+
+function AppContent() {
+  const location = useLocation();
+  const showNav = location.pathname !== "/";
+
+  return (
+    <>
+      {showNav && <NavBar />}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/memory" element={<Memory />} />
+        <Route path="/bubble" element={<Bubble />} />
+      </Routes>
+    </>
+  );
+}
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
+      <AppContent />
     </BrowserRouter>
   );
 }
