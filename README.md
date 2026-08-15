@@ -228,6 +228,13 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 
 Shared `NavBar` component (hidden on landing page) provides navigation between all three data pages.
 
+**Write endpoint:**
+- `POST /api/playlist` — wraps `recommendations/playlist_generator.py`. Required a small, backward-compatible change to that file: `create_spotify_playlist()` now accepts an optional `spotify_client` parameter, defaulting to the module-level CLI client if not provided. The backend passes in a session-authenticated client instead, so playlists are created under the logged-in web user's account, not a CLI login. Verified the CLI script (`python recommendations/playlist_generator.py`) still works unmodified after this change.
+
+## Playlist Generation (UI)
+
+The Dashboard page includes a "Generate Playlist" button with proper loading/success/error states. Clicking it creates a real, private Spotify playlist (10 Rediscovery + 10 Adjacent tracks, shuffled) under the logged-in user's account and returns a clickable link.
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -237,4 +244,4 @@ Shared `NavBar` component (hidden on landing page) provides navigation between a
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
 - ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
 - ✅ Day 7: End-to-end pipeline runner + evaluation metrics
-- ✅ Web App: Full working product — FastAPI backend with real Spotify OAuth, all three core features (Music DNA, Spotify Memory, Music Bubble) live as real pages with navigation, backed by real API endpoints wrapping the original Python logic with zero rewriting
+- ✅ Web App: Complete functional product — auth, all three data pages, and real playlist generation, fully working end-to-end through the browser
