@@ -219,6 +219,15 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 - `/` — Landing page with Connect Spotify CTA
 - `/dashboard` — Displays real Music DNA data fetched from `/api/dna`, rendered as cards with loading/error states
 
+## Pages (complete)
+
+- `/` — Landing page with Connect Spotify CTA
+- `/dashboard` — Music DNA profile (7 dimensions with plain-language explanations)
+- `/memory` — Spotify Memory: top 10 rediscovery candidates, ranked by score
+- `/bubble` — Music Bubble: bubble radius stat + top 10 adjacent artists
+
+Shared `NavBar` component (hidden on landing page) provides navigation between all three data pages.
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -228,4 +237,4 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
 - ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
 - ✅ Day 7: End-to-end pipeline runner + evaluation metrics
-- ✅ Web App: FastAPI backend with real Spotify OAuth, React Router with Landing + Dashboard pages, first live data endpoint (Music DNA) fully working end-to-end
+- ✅ Web App: Full working product — FastAPI backend with real Spotify OAuth, all three core features (Music DNA, Spotify Memory, Music Bubble) live as real pages with navigation, backed by real API endpoints wrapping the original Python logic with zero rewriting

@@ -69,25 +69,27 @@ def build_playlist_tracks(rediscovery_count=10, adjacent_count=10):
 
     return all_ids
 
-def create_spotify_playlist(track_ids, name, description):
+def create_spotify_playlist(track_ids, name, description, spotify_client=None):
     """
-    Spotify removed POST /users/{user_id}/playlists in the Feb 2026 API migration.
-    The replacement is POST /me/playlists (current user only — no user_id needed).
-    spotipy's built-in user_playlist_create() still targets the old removed endpoint,
-    so we call the new one directly via spotipy's internal _post helper.
+    spotify_client: optional spotipy.Spotify instance. If not provided, falls back
+    to the module-level `sp` (CLI usage). The web backend passes in a session-authenticated
+    client instead, so it uses the logged-in user's actual token, not a CLI login.
     """
+
+    client = spotify_client if spotify_client is not None else sp
+
     payload = {
         "name": name,
         "public": False,
         "description": description
     }
-    playlist = sp._post("me/playlists", payload=payload)
+    playlist = client._post("me/playlists", payload=payload)
 
     track_uris = [f"spotify:track:{tid}" for tid in track_ids]
     # Spotify renamed POST /playlists/{id}/tracks to POST /playlists/{id}/items
     # in the Feb 2026 migration. spotipy's playlist_add_items() still targets the
     # old removed path, so we call the new one directly.
-    sp._post(f"playlists/{playlist['id']}/items", payload={"uris": track_uris})
+    client._post(f"playlists/{playlist['id']}/items", payload={"uris": track_uris})
 
     return playlist
 

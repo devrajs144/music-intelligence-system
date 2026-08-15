@@ -21,6 +21,7 @@ function Dashboard() {
   const [dna, setDna] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [playlistStatus, setPlaylistStatus] = useState(null);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/api/dna", { credentials: "include" })
@@ -32,6 +33,27 @@ function Dashboard() {
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, []);
+
+  function handleGeneratePlaylist() {
+    setPlaylistStatus("loading");
+    fetch("http://127.0.0.1:8000/api/playlist", {
+      method: "POST",
+      credentials: "include",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          setPlaylistStatus({ error: data.error });
+        } else {
+          setPlaylistStatus(data);
+        }
+      })
+      .catch(() =>
+        setPlaylistStatus({
+          error: "Something went wrong generating the playlist.",
+        }),
+      );
+  }
 
   return (
     <div className="min-h-screen bg-neutral-950 text-white p-8">
@@ -58,6 +80,51 @@ function Dashboard() {
             />
           </div>
         )}
+
+        <div className="mt-8 bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 className="text-lg font-semibold mb-2">Generate a Playlist</h2>
+          <p className="text-sm text-neutral-400 mb-4">
+            Half forgotten favorites, half artists just outside your bubble — 20
+            tracks, shuffled.
+          </p>
+
+          <button
+            onClick={handleGeneratePlaylist}
+            disabled={playlistStatus === "loading"}
+            className="bg-green-500 hover:bg-green-400 disabled:bg-neutral-700 disabled:cursor-not-allowed text-black font-semibold px-6 py-3 rounded-full transition"
+          >
+            {playlistStatus === "loading"
+              ? "Generating..."
+              : "Generate Playlist"}
+          </button>
+
+          {playlistStatus &&
+            playlistStatus !== "loading" &&
+            playlistStatus.url && (
+              <div className="mt-4 p-4 bg-neutral-800 rounded-lg">
+                <p className="text-green-400 font-medium mb-1">
+                  Created: {playlistStatus.name}
+                </p>
+                <p className="text-sm text-neutral-400 mb-2">
+                  {playlistStatus.track_count} tracks
+                </p>
+                <a
+                  href={playlistStatus.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-green-400 underline hover:text-green-300"
+                >
+                  Open in Spotify →
+                </a>
+              </div>
+            )}
+
+          {playlistStatus?.error && (
+            <p className="mt-4 text-red-400 text-sm">
+              Error: {playlistStatus.error}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
