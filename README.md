@@ -202,6 +202,18 @@ Run: `uvicorn backend.main:app --reload --port 8000`
 
 Requires additional `.env` values: `SESSION_SECRET` (random, generate via `python -c "import secrets; print(secrets.token_hex(32))"`), `FRONTEND_URL`, and an updated `SPOTIFY_REDIRECT_URI` pointing to `http://127.0.0.1:8000/auth/callback` (must also be registered in the Spotify Developer Dashboard alongside the original CLI redirect URI).
 
+## Frontend (React + Vite)
+
+Located in `frontend/`. Talks to the FastAPI backend at `http://127.0.0.1:8000`.
+
+Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
+
+**Important:** the backend and frontend must both be accessed via `127.0.0.1`, not `localhost` — these are treated as different origins by browsers for cookie purposes, and the app's session-based auth depends on consistent origin usage. Both `CORSMiddleware` (backend) and Vite's `server.host` (frontend) are configured for `127.0.0.1` accordingly.
+
+**Local dev requires two servers running simultaneously**, each in its own terminal:
+- `uvicorn backend.main:app --reload --port 8000`
+- `cd frontend && npm run dev`
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
@@ -211,4 +223,4 @@ Requires additional `.env` values: `SESSION_SECRET` (random, generate via `pytho
 - ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
 - ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
 - ✅ Day 7: End-to-end pipeline runner + evaluation metrics
-- ✅ Web App Step 1-2: FastAPI backend with real session-based Spotify OAuth, verified end-to-end
+- ✅ Web App: FastAPI backend with real Spotify OAuth, React + Vite frontend, verified end-to-end login flow (including a real localhost/127.0.0.1 cookie-origin bug found and fixed)

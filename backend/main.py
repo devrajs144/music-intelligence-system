@@ -7,6 +7,13 @@ from fastapi.responses import RedirectResponse, JSONResponse
 from dotenv import load_dotenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+import sys
+from pathlib import Path
+
+# Allow importing from features/ and recommendations/ (siblings of backend/)
+sys.path.append(str(Path(__file__).parent.parent))
+
+from features.music_dna_v2 import build_music_dna
 
 load_dotenv()
 
@@ -90,3 +97,19 @@ def get_current_user(request: Request):
 def logout(request: Request):
     request.session.clear()
     return {"status": "logged out"}
+
+@app.get("/api/dna")
+def get_music_dna(request: Request):
+    """Wraps the existing build_music_dna() function from Day 5."""
+    token_info = request.session.get("token_info")
+    if not token_info:
+        return JSONResponse({"error": "Not authenticated"}, status_code=401)
+
+    try:
+        dna = build_music_dna()
+        return dna
+    except FileNotFoundError as e:
+        return JSONResponse(
+            {"error": f"Missing data file: {e}. Run the data collection pipeline first."},
+            status_code=404
+        )
