@@ -235,6 +235,15 @@ Shared `NavBar` component (hidden on landing page) provides navigation between a
 
 The Dashboard page includes a "Generate Playlist" button with proper loading/success/error states. Clicking it creates a real, private Spotify playlist (10 Rediscovery + 10 Adjacent tracks, shuffled) under the logged-in user's account and returns a clickable link.
 
+## Design System
+
+- **Fonts:** Inter (body), Space Grotesk (display/headings) via Google Fonts
+- **Accent color:** Electric violet (`#8b5cf6`), replacing an earlier Spotify-green placeholder to establish independent visual identity rather than reading as an unofficial Spotify clone
+- **Base:** Near-black (`#0a0a0a`)
+- Defined via Tailwind v4's CSS-first `@theme` syntax in `index.css` (no separate `tailwind.config.js` needed)
+
+Note: VS Code's built-in CSS linter may show a false-positive "unknown at-rule @theme" warning — this is a known editor limitation with Tailwind v4's newer syntax, not a real build error. Install the "Tailwind CSS IntelliSense" extension to resolve the warning cosmetically.
+
 ## Progress Log
 
 - ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
