@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { cn } from "@/lib/utils";
 import { motion, useMotionValue, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -19,6 +19,7 @@ const ScrollableCardStack = ({
   perspective = 1000,
   transitionDuration = 180,
   className,
+  onActiveChange,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -39,111 +40,134 @@ const ScrollableCardStack = ({
   const SNAP_DISTANCE = 50;
 
   // Clamp function from reference code - memoized to prevent recreation
-  const clamp = useCallback((val, [min, max]) => Math.min(Math.max(val, min), max), []);
+  const clamp = useCallback(
+    (val, [min, max]) => Math.min(Math.max(val, min), max),
+    [],
+  );
 
   // Controlled scroll function to move exactly one card
-  const scrollToCard = useCallback((direction) => {
-    if (isScrolling) {
-      return;
-    }
+  const scrollToCard = useCallback(
+    (direction) => {
+      if (isScrolling) {
+        return;
+      }
 
-    const now = Date.now();
-    const timeSinceLastScroll = now - lastScrollTime.current;
+      const now = Date.now();
+      const timeSinceLastScroll = now - lastScrollTime.current;
 
-    if (timeSinceLastScroll < MIN_SCROLL_INTERVAL) {
-      return;
-    }
+      if (timeSinceLastScroll < MIN_SCROLL_INTERVAL) {
+        return;
+      }
 
-    const newIndex = clamp(currentIndex + direction, [0, maxIndex]);
+      const newIndex = clamp(currentIndex + direction, [0, maxIndex]);
 
-    if (newIndex !== currentIndex) {
-      lastScrollTime.current = now;
-      setIsScrolling(true);
-      setCurrentIndex(newIndex);
-      scrollY.set(newIndex * SNAP_DISTANCE);
+      if (newIndex !== currentIndex) {
+        lastScrollTime.current = now;
+        setIsScrolling(true);
+        setCurrentIndex(newIndex);
+        scrollY.set(newIndex * SNAP_DISTANCE);
+        onActiveChange?.(newIndex);
 
-      setTimeout(() => {
-        setIsScrolling(false);
-      }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
-    }
-  }, [currentIndex, maxIndex, scrollY, isScrolling, transitionDuration, clamp]);
-
+        setTimeout(() => {
+          setIsScrolling(false);
+        }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
+      }
+    },
+    [
+      currentIndex,
+      maxIndex,
+      scrollY,
+      isScrolling,
+      transitionDuration,
+      clamp,
+      onActiveChange,
+    ],
+  );
   // Handle scroll events with improved responsiveness
-  const handleScroll = useCallback((deltaY) => {
-    if (isDragging || isScrolling) {
-      return;
-    }
+  const handleScroll = useCallback(
+    (deltaY) => {
+      if (isDragging || isScrolling) {
+        return;
+      }
 
-    if (Math.abs(deltaY) < SCROLL_THRESHOLD) {
-      return;
-    }
+      if (Math.abs(deltaY) < SCROLL_THRESHOLD) {
+        return;
+      }
 
-    const scrollDirection = deltaY > 0 ? 1 : -1;
-    scrollToCard(scrollDirection);
-  }, [isDragging, isScrolling, scrollToCard]);
+      const scrollDirection = deltaY > 0 ? 1 : -1;
+      scrollToCard(scrollDirection);
+    },
+    [isDragging, isScrolling, scrollToCard],
+  );
 
   // Handle wheel events
-  const handleWheel = useCallback((e) => {
-    e.preventDefault();
-    handleScroll(e.deltaY);
-  }, [handleScroll]);
+  const handleWheel = useCallback(
+    (e) => {
+      e.preventDefault();
+      handleScroll(e.deltaY);
+    },
+    [handleScroll],
+  );
 
   // Handle keyboard navigation - improved with reference code logic
-  const handleKeyDown = useCallback((e) => {
-    if (isScrolling) {
-      return;
-    }
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (isScrolling) {
+        return;
+      }
 
-    switch (e.key) {
-      case "ArrowUp":
-      case "ArrowLeft": {
-        e.preventDefault();
-        scrollToCard(-1);
-        break;
-      }
-      case "ArrowDown":
-      case "ArrowRight": {
-        e.preventDefault();
-        scrollToCard(1);
-        break;
-      }
-      case "Home": {
-        e.preventDefault();
-        if (currentIndex !== 0) {
-          setIsScrolling(true);
-          setCurrentIndex(0);
-          scrollY.set(0);
-          setTimeout(() => {
-            setIsScrolling(false);
-          }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
+      switch (e.key) {
+        case "ArrowUp":
+        case "ArrowLeft": {
+          e.preventDefault();
+          scrollToCard(-1);
+          break;
         }
-        break;
-      }
-      case "End": {
-        e.preventDefault();
-        if (currentIndex !== maxIndex) {
-          setIsScrolling(true);
-          setCurrentIndex(maxIndex);
-          scrollY.set(maxIndex * SNAP_DISTANCE);
-          setTimeout(() => {
-            setIsScrolling(false);
-          }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
+        case "ArrowDown":
+        case "ArrowRight": {
+          e.preventDefault();
+          scrollToCard(1);
+          break;
         }
-        break;
+        case "Home": {
+          e.preventDefault();
+          if (currentIndex !== 0) {
+            setIsScrolling(true);
+            setCurrentIndex(0);
+            scrollY.set(0);
+            setTimeout(() => {
+              setIsScrolling(false);
+            }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
+          }
+          break;
+        }
+        case "End": {
+          e.preventDefault();
+          if (currentIndex !== maxIndex) {
+            setIsScrolling(true);
+            setCurrentIndex(maxIndex);
+            scrollY.set(maxIndex * SNAP_DISTANCE);
+            setTimeout(() => {
+              setIsScrolling(false);
+            }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
+          }
+          break;
+        }
+        default: {
+          // No action for other keys
+          break;
+        }
       }
-      default: {
-        // No action for other keys
-        break;
-      }
-    }
-  }, [
-    currentIndex,
-    maxIndex,
-    scrollY,
-    isScrolling,
-    scrollToCard,
-    transitionDuration,
-  ]);
+    },
+    [
+      currentIndex,
+      maxIndex,
+      scrollY,
+      isScrolling,
+      scrollToCard,
+      transitionDuration,
+    ],
+  );
 
   // Handle touch events for mobile
   const touchStartY = useRef(0);
@@ -151,28 +175,34 @@ const ScrollableCardStack = ({
   const touchStartTime = useRef(0);
   const touchMoved = useRef(false);
 
-  const handleTouchStart = useCallback((e) => {
-    touchStartY.current = e.touches[0].clientY;
-    touchStartIndex.current = currentIndex;
-    touchStartTime.current = Date.now();
-    touchMoved.current = false;
-    setIsDragging(true);
-  }, [currentIndex]);
+  const handleTouchStart = useCallback(
+    (e) => {
+      touchStartY.current = e.touches[0].clientY;
+      touchStartIndex.current = currentIndex;
+      touchStartTime.current = Date.now();
+      touchMoved.current = false;
+      setIsDragging(true);
+    },
+    [currentIndex],
+  );
 
-  const handleTouchMove = useCallback((e) => {
-    if (!isDragging || isScrolling) {
-      return;
-    }
+  const handleTouchMove = useCallback(
+    (e) => {
+      if (!isDragging || isScrolling) {
+        return;
+      }
 
-    const touchY = e.touches[0].clientY;
-    const deltaY = touchStartY.current - touchY;
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchStartY.current - touchY;
 
-    if (Math.abs(deltaY) > TOUCH_SCROLL_THRESHOLD && !touchMoved.current) {
-      const scrollDirection = deltaY > 0 ? 1 : -1;
-      scrollToCard(scrollDirection);
-      touchMoved.current = true;
-    }
-  }, [isDragging, isScrolling, scrollToCard]);
+      if (Math.abs(deltaY) > TOUCH_SCROLL_THRESHOLD && !touchMoved.current) {
+        const scrollDirection = deltaY > 0 ? 1 : -1;
+        scrollToCard(scrollDirection);
+        touchMoved.current = true;
+      }
+    },
+    [isDragging, isScrolling, scrollToCard],
+  );
 
   const handleTouchEnd = useCallback(() => {
     setIsDragging(false);
@@ -201,47 +231,51 @@ const ScrollableCardStack = ({
   }, [currentIndex, isDragging, scrollY]);
 
   // Calculate transform for each card based on the reference code
-  const getCardTransform = useCallback((index) => {
-    const offsetIndex = index - currentIndex;
+  const getCardTransform = useCallback(
+    (index) => {
+      const offsetIndex = index - currentIndex;
 
-    // Apply blur effect for cards behind the current one - matching reference exactly
-    const isBehindCurrent = currentIndex > index;
-    const blur = !shouldReduceMotion && isBehindCurrent ? 2 : 0;
+      // Apply blur effect for cards behind the current one - matching reference exactly
+      const isBehindCurrent = currentIndex > index;
+      const blur = !shouldReduceMotion && isBehindCurrent ? 2 : 0;
 
-    // Opacity based on distance - improved logic from reference
-    const opacity = currentIndex > index ? 0 : 1;
+      // Opacity based on distance - improved logic from reference
+      const opacity = currentIndex > index ? 0 : 1;
 
-    // Scale with improved calculation inspired by reference - using clamp function
-    const scale = shouldReduceMotion
-      ? 1
-      : clamp(1 - offsetIndex * SCALE_FACTOR, [MIN_SCALE, MAX_SCALE]);
+      // Scale with improved calculation inspired by reference - using clamp function
+      const scale = shouldReduceMotion
+        ? 1
+        : clamp(1 - offsetIndex * SCALE_FACTOR, [MIN_SCALE, MAX_SCALE]);
 
-    // Vertical offset with improved calculation - matching reference exactly
-    const y = shouldReduceMotion
-      ? 0
-      : clamp(offsetIndex * FRAME_OFFSET, [
-          FRAME_OFFSET * FRAMES_VISIBLE_LENGTH,
-          Number.POSITIVE_INFINITY,
-        ]);
+      // Vertical offset with improved calculation - matching reference exactly
+      const y = shouldReduceMotion
+        ? 0
+        : clamp(offsetIndex * FRAME_OFFSET, [
+            FRAME_OFFSET * FRAMES_VISIBLE_LENGTH,
+            Number.POSITIVE_INFINITY,
+          ]);
 
-    // Z-index for proper layering - matching reference pattern
-    const zIndex = items.length - index;
+      // Z-index for proper layering - matching reference pattern
+      const zIndex = items.length - index;
 
-    return {
-      blur,
-      opacity,
-      scale,
-      y,
-      zIndex,
-    };
-  }, [currentIndex, items.length, clamp, shouldReduceMotion]);
+      return {
+        blur,
+        opacity,
+        scale,
+        y,
+        zIndex,
+      };
+    },
+    [currentIndex, items.length, clamp, shouldReduceMotion],
+  );
 
   return (
     <section
       aria-atomic="true"
       aria-label="Scrollable card stack"
       aria-live="polite"
-      className={cn("relative mx-auto h-fit w-fit min-w-[300px]", className)}>
+      className={cn("relative mx-auto h-fit w-fit min-w-[300px]", className)}
+    >
       {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Interactive scrollable widget requires event handlers */}
       <div
         aria-label="Scrollable card container"
@@ -259,7 +293,8 @@ const ScrollableCardStack = ({
           touchAction: "none",
         }}
         // biome-ignore lint/a11y/noNoninteractiveTabindex: Required for keyboard navigation
-        tabIndex={0}>
+        tabIndex={0}
+      >
         {items.map((item, i) => {
           const transform = getCardTransform(i);
           const isActive = i === currentIndex;
@@ -329,19 +364,22 @@ const ScrollableCardStack = ({
                         type: "spring",
                       },
                     }
-              }>
+              }
+            >
               {/* Card Content */}
               <div
                 className={cn(
                   "flex aspect-16/10 w-full flex-col rounded-xl bg-background transition-all duration-200",
                   isHovered && "shadow-xl",
-                  isScrolling && isActive && "ring-2 ring-brand ring-opacity-50"
+                  isScrolling &&
+                    isActive &&
+                    "ring-2 ring-brand ring-opacity-50",
                 )}
-                style={{ height: `${cardHeight}px` }}>
+                style={{ height: `${cardHeight}px` }}
+              >
                 {/* Scroll indicator */}
                 {isScrolling && isActive ? (
-                  <div
-                    className="absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-brand opacity-75" />
+                  <div className="absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-brand opacity-75" />
                 ) : null}
 
                 {/* Image Container - takes remaining space */}
@@ -361,7 +399,8 @@ const ScrollableCardStack = ({
                       scale: "1.2",
                       zIndex: 1,
                     }}
-                    width={10} />
+                    width={10}
+                  />
                   {/* Image */}
                   <img
                     alt={`${item.name}'s card`}
@@ -375,18 +414,20 @@ const ScrollableCardStack = ({
                       userSelect: "none",
                       zIndex: 2,
                     }}
-                    width={400} />
+                    width={400}
+                  />
                 </div>
 
                 {/* User Info - always at bottom */}
                 <a
                   aria-label={`View ${item.name}'s profile`}
                   className={cn(
-                    "flex items-center justify-center gap-1 bg-background/95 p-3 text-decoration-none text-inherit backdrop-blur-sm transition-colors duration-200"
+                    "flex items-center justify-center gap-1 bg-background/95 p-3 text-decoration-none text-inherit backdrop-blur-sm transition-colors duration-200",
                   )}
                   href={item.href}
                   rel="noopener noreferrer"
-                  target="_blank">
+                  target="_blank"
+                >
                   <img
                     alt={`${item.name}'s avatar`}
                     className="mr-1 h-5 w-5 overflow-hidden rounded-full"
@@ -396,7 +437,8 @@ const ScrollableCardStack = ({
                     style={{
                       boxShadow: "0 0 0 1px var(--border-secondary, #e0e0e0)",
                     }}
-                    width={20} />
+                    width={20}
+                  />
                   <span className="font-medium text-foreground text-sm leading-none">
                     {item.name}
                   </span>
@@ -413,7 +455,8 @@ const ScrollableCardStack = ({
         <div
           aria-label="Card navigation"
           className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2"
-          role="tablist">
+          role="tablist"
+        >
           {Array.from({ length: items.length }, (_, i) => (
             <motion.button
               aria-label={`Go to card ${i + 1} of ${items.length}`}
@@ -422,7 +465,7 @@ const ScrollableCardStack = ({
                 "h-2 w-2 cursor-pointer rounded-full transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-brand focus:ring-offset-1",
                 i === currentIndex
                   ? "scale-125 bg-brand"
-                  : "bg-gray-300 hover:bg-gray-400"
+                  : "bg-gray-300 hover:bg-gray-400",
               )}
               key={`scrollable-indicator-${items[i]?.id || i}`}
               onClick={() => {
@@ -430,6 +473,7 @@ const ScrollableCardStack = ({
                   setIsScrolling(true);
                   setCurrentIndex(i);
                   scrollY.set(i * SNAP_DISTANCE);
+                  onActiveChange?.(i);
                   setTimeout(() => {
                     setIsScrolling(false);
                   }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
@@ -444,7 +488,8 @@ const ScrollableCardStack = ({
               }}
               type="button"
               whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }} />
+              whileTap={{ scale: 0.9 }}
+            />
           ))}
         </div>
 

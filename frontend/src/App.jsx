@@ -4,6 +4,9 @@ import Dashboard from "./pages/Dashboard";
 import Memory from "./pages/Memory";
 import Bubble from "./pages/Bubble";
 import NavBar from "./components/NavBar";
+import Grain from "./components/Grain";
+import NowPlayingBar from "./components/NowPlayingBar";
+import { PlayerProvider } from "./context/PlayerContext";
 
 function AppContent() {
   const location = useLocation();
@@ -11,6 +14,7 @@ function AppContent() {
 
   return (
     <>
+      <Grain />
       {showNav && <NavBar />}
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -18,6 +22,7 @@ function AppContent() {
         <Route path="/memory" element={<Memory />} />
         <Route path="/bubble" element={<Bubble />} />
       </Routes>
+      <NowPlayingBar />
     </>
   );
 }
@@ -25,7 +30,9 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
-      <AppContent />
+      <PlayerProvider>
+        <AppContent />
+      </PlayerProvider>
     </BrowserRouter>
   );
 }

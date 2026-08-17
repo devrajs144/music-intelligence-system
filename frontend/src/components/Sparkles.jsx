@@ -20,6 +20,14 @@ function SparklesCore({
       background: { color: { value: background } },
       fullScreen: { enable: false, zIndex: 0 },
       fpsLimit: 120,
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "repulse" },
+        },
+        modes: {
+          repulse: { distance: 80, duration: 0.4 },
+        },
+      },
       particles: {
         color: { value: particleColor },
         move: {
@@ -43,7 +51,9 @@ function SparklesCore({
             startValue: "random",
           },
         },
-        size: { value: { min: minSize, max: maxSize } },
+        size: {
+          value: { min: minSize, max: maxSize },
+        },
       },
       detectRetina: true,
     }),

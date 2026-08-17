@@ -16,6 +16,7 @@ An ML-powered system that analyzes Spotify listening data to help users rediscov
 ## Setup
 
 ### Prerequisites
+
 - Python 3.10+
 - A Spotify account (Premium required for Development Mode API access)
 - A Spotify Developer app (free) — https://developer.spotify.com/dashboard
@@ -23,24 +24,29 @@ An ML-powered system that analyzes Spotify listening data to help users rediscov
 ### Installation
 
 1. Clone the repo
+
    ```
    git clone https://github.com/devrajs144/music-intelligence-system.git
    cd music-intelligence-system
    ```
 
 2. Create and activate a virtual environment
+
    ```
    python -m venv venv
    venv\Scripts\activate.bat
    ```
-   *(Do not move this folder after creating the venv — venvs hardcode absolute paths. Delete and recreate if you move the project.)*
+
+   _(Do not move this folder after creating the venv — venvs hardcode absolute paths. Delete and recreate if you move the project.)_
 
 3. Install dependencies
+
    ```
    pip install -r requirements.txt
    ```
 
 4. Create a `.env` file in the project root:
+
    ```
    SPOTIFY_CLIENT_ID=your_client_id
    SPOTIFY_CLIENT_SECRET=your_client_secret
@@ -48,9 +54,11 @@ An ML-powered system that analyzes Spotify listening data to help users rediscov
    ```
 
 5. Test the Spotify connection
+
    ```
    python backend/test_connection.py
    ```
+
    Expected output: `Spotify authentication successful`
 
 6. Collect your Spotify data
@@ -64,6 +72,7 @@ An ML-powered system that analyzes Spotify listening data to help users rediscov
 Spotify restricted several Web API endpoints for new Development Mode apps (Nov 2024 – Feb 2026 changes): Audio Features, Audio Analysis, Recommendations, Related Artists, Featured Playlists, and Artist Genres are unavailable or empty for new apps.
 
 This project is built entirely on endpoints that remain accessible:
+
 - Top Tracks / Top Artists (short/medium/long term)
 - Recently Played (last ~50 plays only — a hard Spotify API limit)
 - Saved ("Liked") Tracks, with exact `added_at` timestamps
@@ -75,7 +84,7 @@ Music DNA and Spotify Memory rely on listening **behaviour** (recency, repetitio
 
 First interpretable features, built from listening behavior:
 
-- **Artist Diversity Score** (Shannon entropy, normalized 0–1): how spread out listening is across artists, computed from actual track-level artist frequency across top tracks (all time ranges) and recently played. *(Note: must be computed from raw track-artist frequency, not the pre-deduplicated "top artists" list, or it trivially returns ~1.0.)*
+- **Artist Diversity Score** (Shannon entropy, normalized 0–1): how spread out listening is across artists, computed from actual track-level artist frequency across top tracks (all time ranges) and recently played. _(Note: must be computed from raw track-artist frequency, not the pre-deduplicated "top artists" list, or it trivially returns ~1.0.)_
 - **Discovery Rate**: fraction of current top tracks (short_term) not present in long-term top tracks — measures rotation of favorites.
 - **Repetition Rate**: fraction of recently played tracks already present in saved/liked songs — measures replay of committed favorites vs. exploration.
 
@@ -86,10 +95,12 @@ Run: `python features/music_dna_v1.py` → saves to `data/processed/music_dna_v1
 Rule-based, fully explainable scoring for surfacing forgotten favorites ("You Forgot These").
 
 **Exclusion rules** (hard disqualifiers):
+
 - Currently in `short_term` top tracks → not forgotten, still a current favorite
 - Present in `recently_played` (last ~50 plays) → actively being played
 
 **Scoring** (for remaining candidates from `medium_term` ∪ `long_term`):
+
 - **Persistence** (weight 0.5, highest priority): 1.0 if in both medium+long term, 0.6 if long-term only, 0.4 if medium-term only. Lasting favorites are weighted above short-lived phases.
 - **Historical strength** (weight 0.3): based on best rank position across whichever lists the track appears in.
 - **Absence proxy** (weight 0.2): higher if the track has dropped out of medium_term entirely (implies a longer gap) vs. still present in both.
@@ -117,11 +128,13 @@ tests/               Tests (future)
 Measures listening concentration and surfaces "adjacent" artists using only your own data (no external similarity API available — see Data Availability Notes).
 
 **Bubble measurement:**
+
 - Artist frequency distribution across all top-track time ranges + recently played
 - Bubble radius: number of artists accounting for ~80% of total listening
 - Top 5 artist concentration %
 
 **Adjacency scoring** (for non-core artists, low-to-moderate frequency):
+
 - Freshness (weight 0.5, highest priority): rewards presence across multiple recent time ranges — chosen because "bubble escape" should surface currently-live possibilities, not old abandoned tries.
 - Familiarity (weight 0.3): normalized play frequency — must have been heard, but not obsessively.
 - Distinctness (weight 0.2): guaranteed by excluding core/top-5 artists before scoring.
@@ -135,6 +148,7 @@ Measures listening concentration and surfaces "adjacent" artists using only your
 Combines all behavioural features into one interpretable listener profile, each with a plain-language explanation.
 
 **Dimensions:**
+
 - Artist Diversity, Discovery Rate, Repetition Rate (from v1, Day 2)
 - **Nostalgia Score** (new): overlap between medium_term and long_term top tracks — distinct from Discovery Rate, which compares short_term vs long_term.
 - **Mainstream Tendency** (new, currently unavailable): intended to average Spotify's `popularity` field across top tracks. Confirmed via direct field inspection that `popularity` is absent entirely from track objects returned to this app's Development Mode access tier — reported honestly as "Not available" rather than defaulting to a misleading 0.0.
@@ -151,6 +165,7 @@ Combines Rediscovery (Day 3) and Adjacent Artists (Day 4) into one real, shuffle
 - Created as a private playlist with an auto-generated name/description.
 
 **Critical fix — Feb 2026 Spotify API migration:** `spotipy`'s built-in `user_playlist_create()` and `playlist_add_items()` methods target endpoints Spotify has since removed:
+
 - `POST /users/{user_id}/playlists` → replaced by `POST /me/playlists`
 - `POST /playlists/{id}/tracks` → replaced by `POST /playlists/{id}/items`
 
@@ -165,14 +180,17 @@ This runs, in order: data collection → Music DNA v1 features → Rediscovery s
 Run: `python evaluation/evaluate_system.py` → saves to `data/processed/evaluation_results.json`
 
 **Spotify Memory:**
+
 - Score spread across candidates (confirms scores meaningfully discriminate rather than clustering)
 - Self-rated Hit Rate@10 — since no ground-truth labels exist for "genuine forgotten favorites," this is an honest human-judgment metric: the project owner reviews the top 10 and rates how many genuinely feel right. Result: **0.6** (6/10).
 
 **Music Bubble Detector:**
+
 - Concentration ratio (bubble radius ÷ total unique artists) — quantifies how tight or loose the listening bubble is. Result: **0.493** (moderately spread, not tightly concentrated).
 - Correctness check: zero overlap confirmed between Adjacent and core Top-5 artists.
 
 **Music DNA:**
+
 - Consistency check between Discovery Rate and Nostalgia Score — confirmed these measure genuinely distinct signals (0.74 vs 0.36) rather than being redundant, and together indicate a listener whose taste actively rotates rather than settling into long-term favorites.
 
 ## Web Application (in progress)
@@ -193,6 +211,7 @@ React (Vite) → FastAPI → existing Python modules → Spotify API / data/
 Located in `backend/main.py`. Owns the Spotify OAuth flow for the web app (separate from the CLI scripts' local-browser-popup auth).
 
 **Auth endpoints:**
+
 - `GET /auth/login` — redirects to Spotify's consent screen
 - `GET /auth/callback` — Spotify redirects here after approval; exchanges code for token, stores in session, redirects to frontend
 - `GET /auth/me` — returns current session's authenticated user
@@ -211,6 +230,7 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 **Important:** the backend and frontend must both be accessed via `127.0.0.1`, not `localhost` — these are treated as different origins by browsers for cookie purposes, and the app's session-based auth depends on consistent origin usage. Both `CORSMiddleware` (backend) and Vite's `server.host` (frontend) are configured for `127.0.0.1` accordingly.
 
 **Local dev requires two servers running simultaneously**, each in its own terminal:
+
 - `uvicorn backend.main:app --reload --port 8000`
 - `cd frontend && npm run dev`
 
@@ -229,6 +249,7 @@ Run: `cd frontend && npm run dev` → serves at `http://127.0.0.1:5173`
 Shared `NavBar` component (hidden on landing page) provides navigation between all three data pages.
 
 **Write endpoint:**
+
 - `POST /api/playlist` — wraps `recommendations/playlist_generator.py`. Required a small, backward-compatible change to that file: `create_spotify_playlist()` now accepts an optional `spotify_client` parameter, defaulting to the module-level CLI client if not provided. The backend passes in a session-authenticated client instead, so playlists are created under the logged-in web user's account, not a CLI login. Verified the CLI script (`python recommendations/playlist_generator.py`) still works unmodified after this change.
 
 ## Playlist Generation (UI)
@@ -244,13 +265,22 @@ The Dashboard page includes a "Generate Playlist" button with proper loading/suc
 
 Note: VS Code's built-in CSS linter may show a false-positive "unknown at-rule @theme" warning — this is a known editor limitation with Tailwind v4's newer syntax, not a real build error. Install the "Tailwind CSS IntelliSense" extension to resolve the warning cosmetically.
 
+## Landing Page Redesign
+
+Rebuilt using real, sourced components rather than hand-approximated effects:
+
+- **Sparkles background** (Aceternity-style, `@tsparticles`) — ambient green particle field
+- **Custom Music Island** — bespoke component (not the SmoothUI demo) cycling through 5 real Bollywood tracks (Kesariya, Raabta, Channa Mereya, Jeena Jeena, Samjhawan), auto-advancing with play/pause/skip controls
+- **Scrollable Card Stack** (SmoothUI, real component) — 4 tracks (Kesariya, Raabta, Tum Hi Ho, Kabhi Kabhi Aditi) in a scroll/keyboard-navigable 3D card stack
+- **Cursor Follow** (SmoothUI, real component) — custom green cursor with text-bubble hover states, wraps the whole page
+- **Real album artwork** via the public iTunes Search API (`itunes.apple.com/search`), called client-side, no API key required, artwork upgraded from 100x100 to 600x600 by URL pattern substitution
+
+**Component installation note:** `smoothui-cli` repeatedly failed with a file-write conflict, later traced to the project living inside a OneDrive-synced folder. Installing the same components via the `shadcn` CLI (`npx shadcn@latest add @smoothui/...`) worked reliably instead — used consistently for all SmoothUI and Magic UI component installs.
+
+**Copyright note:** Real Bollywood/pop album artwork is used for personal portfolio/demo purposes via Apple's public promotional artwork API, intended for exactly this kind of display use.
+
 ## Progress Log
 
-- ✅ Day 1: Environment, GitHub, and Spotify OAuth connection
-- ✅ Day 2: Data collection pipeline, pandas loading, first Music DNA behavioural features
-- ✅ Day 3: Spotify Memory — Rediscovery Score v1
-- ✅ Day 4: Music Bubble Detector — concentration measurement, adjacency scoring, fuzzy name matching
-- ✅ Day 5: Music DNA v2 — consolidated dashboard, Nostalgia Score, honestly-reported data limitation
-- ✅ Day 6: Smart Playlist Generator — real Spotify playlist creation, fixed Feb 2026 API endpoint migration issues
-- ✅ Day 7: End-to-end pipeline runner + evaluation metrics
-- ✅ Web App: Complete functional product — auth, all three data pages, and real playlist generation, fully working end-to-end through the browser
+- ✅ Days 1–7: Full Python/ML system — see above
+- ✅ Web App (functional): FastAPI backend, Spotify OAuth, all 4 pages, real playlist generation
+- ✅ Web App (design): Landing page rebuilt with real sourced animation components, custom music showcase, real album artwork integration
